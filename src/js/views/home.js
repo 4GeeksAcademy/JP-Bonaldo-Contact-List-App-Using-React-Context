@@ -1,15 +1,23 @@
-import React from "react";
-import rigoImage from "../../img/rigo-baby.jpg";
-import "../../styles/home.css";
+import React, { useContext } from "react";
+import { Context } from "../store/appContext";
+import { ContactCard } from "../component/contactCard.js";
 
-export const Home = () => (
-	<div className="text-center mt-5">
-		<h1>Hello Rigo!</h1>
-		<p>
-			<img src={rigoImage} />
-		</p>
-		<a href="#" className="btn btn-success">
-			If you see this green button, bootstrap is working
-		</a>
-	</div>
-);
+export const ContactList = () => {
+  const { store } = useContext(Context);
+  const contacts = store.contacts;
+
+  return (
+    <div className="p-6">
+      <div className="flex justify-end mb-4">
+        <button className="bg-green-500 text-white px-4 py-2 rounded">
+          Add new contact
+        </button>
+      </div>
+      <div className="flex flex-col gap-4">
+        {contacts.map(contact => (
+          <ContactCard key={contact.id} contact={contact} />
+        ))}
+      </div>
+    </div>
+  );
+};
